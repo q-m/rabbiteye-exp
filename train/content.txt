@@ -1,0 +1,37 @@
+VOED000059000.00.nam.png  Energie
+VOED000059000.01.nam.png  Energie
+VOED000059000.02.nam.png  Vetten
+VOED000059000.03.nam.png  Vetzuren, totaal verzadigd
+VOED000059000.04.nam.png  Koolhydraten
+VOED000059000.05.nam.png  Suikers
+VOED000059000.06.nam.png  Eiwitten
+VOED000059000.07.nam.png  Zout
+VOED000059000.header.png  per 100 gram
+VOED000660000.header.png  per 100 gram
+VOED007476000.header.png  per 100 gram
+VOED045249000.00.nam.png  Energie
+VOED045249000.01.nam.png  Energie
+VOED045249000.02.nam.png  Vetten
+VOED045249000.03.nam.png  Vetzuren, totaal verzadigd
+VOED045249000.04.nam.png  Koolhydraten
+VOED045249000.05.nam.png  Suikers
+VOED045249000.06.nam.png  Eiwitten
+VOED045249000.07.nam.png  Zout
+VOED045249000.header.png  per 100 milliliter
+VOED062583000.header.png  per 100 gram
+VOED068275000.header.png  per 100 gram
+VOED071114000.header.png  per 100 gram
+VOED080812000.header.png  per 100 gram
+VOED084378000.header.png  per 100 gram
+VOED084383000.header.png  per 100 gram
+VOED670137000.00.nam.png  Energie
+VOED670137000.01.nam.png  Energie
+VOED670137000.02.nam.png  Vetten
+VOED670137000.03.nam.png  Vetzuren, totaal verzadigd
+VOED670137000.04.nam.png  Koolhydraten
+VOED670137000.05.nam.png  Suikers
+VOED670137000.06.nam.png  Eiwitten
+VOED670137000.07.nam.png  Zout
+VOED670137000.header.png  per 100 gram
+VOED670875000.header.png  per 100 milliliter
+VOED671914000.header.png  per 100 gram
