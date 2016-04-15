@@ -1,0 +1,32 @@
+VOED000059000.00.unt.png  Kilojoule
+VOED000059000.01.unt.png  Kilocalorie (internationale tabel) (GDSN)
+VOED000059000.02.unt.png  Gram
+VOED000059000.03.unt.png  Gram
+VOED000059000.04.unt.png  Gram
+VOED000059000.05.unt.png  Gram
+VOED000059000.06.unt.png  Gram
+VOED000059000.07.unt.png  Gram
+VOED045249000.00.unt.png  Kilojoule
+VOED045249000.01.unt.png  Kilocalorie
+VOED045249000.02.unt.png  Gram
+VOED045249000.03.unt.png  Gram
+VOED045249000.04.unt.png  Gram
+VOED045249000.05.unt.png  Gram
+VOED045249000.06.unt.png  Gram
+VOED045249000.07.unt.png  Gram
+VOED670137000.00.unt.png  Kilojoule
+VOED670137000.01.unt.png  Kilocalorie (internationale tabel) (GDSN)
+VOED670137000.02.unt.png  Gram
+VOED670137000.03.unt.png  Gram
+VOED670137000.04.unt.png  Gram
+VOED670137000.05.unt.png  Gram
+VOED670137000.06.unt.png  Gram
+VOED670137000.07.unt.png  Gram
+VOED576816000.00.unt.png  Kilojoule
+VOED576816000.01.unt.png  Kilocalorie
+VOED576816000.02.unt.png  Gram
+VOED576816000.03.unt.png  Gram
+VOED576816000.04.unt.png  Gram
+VOED576816000.05.unt.png  Gram
+VOED576816000.06.unt.png  Gram
+VOED576816000.07.unt.png  Gram

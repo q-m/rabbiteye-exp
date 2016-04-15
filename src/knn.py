@@ -19,8 +19,8 @@ class KNN:
         self.knn.train(self.__train_imgs, self.__train_labels)
 
     def find(self, img, k=3):
-        r = self.find_nearest(img, k)
-        return self.labels[r] if r else None
+        r = self.find_nearest(img, k)[0]
+        if r is not None: return self.labels[r]
 
     def find_nearest(self, img, k=3):
         return self.knn.find_nearest(self.__prepare(img), k=k)
@@ -44,4 +44,3 @@ class KNN:
         padded = numpy.zeros(self.__shape)
         padded[0:(img.shape[0]),0:(img.shape[1])] = img
         return padded.reshape(-1, self.__shape[0]*self.__shape[1]).astype(numpy.float32)
-
