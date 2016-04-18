@@ -18,7 +18,7 @@ class File:
 
     def __process(self, img, invert=False):
         if self.preprocess:
-            ret, img = cv2.threshold(img, 0, 255, (cv2.THRESH_BINARY_INV if invert else cv2.THRESH_BINARY) + cv2.THRESH_OTSU)
+            ret, img = cv2.threshold(img, 150, 255, (cv2.THRESH_BINARY_INV if invert else cv2.THRESH_BINARY))
         return img
 
     def __ypositions(self):
