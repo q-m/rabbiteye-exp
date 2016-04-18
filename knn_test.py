@@ -18,10 +18,21 @@ knn_name.load('knn_data.nam.npz')
 knn_unit = KNN()
 knn_unit.load('knn_data.unt.npz')
 
+knn_value = KNN()
+knn_value.load('knn_data.val.npz')
+
 f = File(sys.argv[1])
 k = int(sys.argv[2])
 
 print_nearest(knn_header, f.header(), k)
 for row_img in f.rows():
     row = Row(row_img)
-    print "%s: %s"%(knn_name.find(row.name_img(), k=k), knn_unit.find(row.unit_img(), k=k))
+    name = knn_name.find(row.name_img(), k=k)
+    unit = knn_unit.find(row.unit_img(), k=k)
+
+    number = Number(row.value_img())
+    snumber = []
+    for j, digit_img in enumerate(number.digit_imgs()):
+        snumber.append(knn_value.find(digit_img, k=k))
+
+    print "%s: %s %s"%(name, ''.join(snumber), unit)

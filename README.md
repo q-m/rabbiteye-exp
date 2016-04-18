@@ -20,20 +20,20 @@ First the table is split into separate components. Then a basic
 trained, and then we can classify new images. This works well for fixed terms
 like _energy_ and _salt_, which is just what we need for nutritional tables.
 
-Header, nutrient name and nutrient units are trained separately.
+Header, nutrient name, nutrient units and digits are trained separately.
 
 Make sure you have [Python](http://www.python.org/) 2.5+, [numpy](http://www.numpy.org) 1.8+
 and [OpenCV](http://www.opencv.org) 2.4+ (with Python bindings).
 
 In this example, we'll be training with images from [imgs/](imgs) with labels
-from [train/content.txt](train/content.txt), and test it on
+from `train/content.*.txt`, and test it on
 [an image](imgstest/VOED665279000.png) that was not in the training set.
 
 ```sh
 # First split img/*.png into separate bits for recognition in train/
 $ ./split.py
 
-# Edit train/content.{header,nam,unt}.txt and add a label for each file (only if you added images)
+# Edit train/content.{header,nam,val,unt}.txt and add a label for each file (only if you added images)
 $ vi train/content.*.txt
 
 # Train a simple k-nearest neighbour algorithm
