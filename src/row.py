@@ -44,6 +44,9 @@ class Row:
     # index of first unit segment
     def __unit_idx(self):
         segments = self.__segments()
+        # easy if there's just two (and avoid a corner-case)
+        if len(segments) == 2:
+            return 1
         # join digits
         for i, (x,y,w,h) in enumerate(segments):
             if w > 30: return i
