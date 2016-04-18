@@ -44,7 +44,7 @@ $ ./knn_test.py imgstest/VOED665279000.png 3
 per 100 gram
 Energie: 105 Kilojoule
 Energie: 251 Kilocalorie
-Vetten: 12.8 Gram
+Vetten: 12.3 Gram
 Vetzuren, totaal verzadigd: 8.2 Gram
 Koolhydraten: 31.4 Gram
 Suikers: 30.2 Gram
@@ -52,11 +52,7 @@ Eiwitten: 3.3 Gram
 Zout: 0.32 Gram
 ```
 
-There are two errors here:
-* _105_ instead of _1050_, reason unknown
-* _12.8_ instead of _12.3_, need more training data for digit _3_
-
-But all in all, not bad!
+There's one error here: _105_ instead of _1050_. All in all, not bad!
 
 
 Future steps
