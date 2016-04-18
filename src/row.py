@@ -9,11 +9,15 @@ class Row:
 
     # name is just left half
     def name_img(self):
-        return self.img[:, :240]
+        return self.img[:, :self.__xsplit()]
+
+    # horizontal split point
+    def __xsplit(self):
+        return int(self.img.shape[1] * 0.48)
 
     # unit and value are in right half
     def __unitvalue_img(self):
-        return self.img[:, 240:]
+        return self.img[:, self.__xsplit():]
 
     # value is first segment of right half
     def value_img(self):
@@ -49,7 +53,7 @@ class Row:
             return 1
         # join digits
         for i, (x,y,w,h) in enumerate(segments):
-            if w > 30: return i
+            if w > self.img.shape[1]/16: return i
         # error!
         raise "Last segment expected to be a word"
 

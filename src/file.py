@@ -24,7 +24,7 @@ class File:
     def __ypositions(self):
         if self.__ypositions_cached is None:
             # detect lines
-            img = self.__process(self.img)
+            img = self.img
             img = cv2.Canny(img, 20, 200)
             lines = cv2.HoughLinesP(img, 1, numpy.pi/180, 200, img.shape[1]*0.8, 5)
             # pick horizontal lines, and y-position only
