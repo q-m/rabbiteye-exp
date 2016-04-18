@@ -9,10 +9,10 @@ class KNN:
         # convert string labels to index
         self.labels = list(set(labels))
         self.__train_labels = numpy.array(map(self.labels.index, labels))[:, numpy.newaxis]
-        # put images into array
+        # put images into array (some extra pixels when new images have larger areas)
         self.__shape = (
-                max(map(lambda i: i.shape[0], imgs)),
-                max(map(lambda i: i.shape[1], imgs))
+                max(map(lambda i: i.shape[0], imgs)) + 8,
+                max(map(lambda i: i.shape[1], imgs)) + 8
         )
         self.__train_imgs = numpy.vstack(map(self.__prepare, imgs))
         # train

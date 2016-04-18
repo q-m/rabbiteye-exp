@@ -42,23 +42,26 @@ $ ./knn_train.py
 # Classify a new image with k=3
 $ ./knn_test.py imgstest/VOED665279000.png 3
 per 100 gram
-Energie: Kilojoule
-Energie: Kilocalorie
-Vetten: Gram
-Vetzuren, totaal verzadigd: Gram
-Koolhydraten: Gram
-Suikers: Gram
-Eiwitten: Gram
-Zout: Gram
+Energie: 105 Kilojoule
+Energie: 251 Kilocalorie
+Vetten: 12.8 Gram
+Vetzuren, totaal verzadigd: 8.2 Gram
+Koolhydraten: 31.4 Gram
+Suikers: 30.2 Gram
+Eiwitten: 3.3 Gram
+Zout: 0.32 Gram
 ```
 
-So far, so good!
+There are two errors here:
+* _105_ instead of _1050_, reason unknown
+* _12.8_ instead of _12.3_, need more training data for digit _3_
+
+But all in all, not bad!
 
 
 Future steps
 ------------
 
-* Segment digits from value, and train a network to recognise them.
 * Recognise text rows from the image, since not all images have equal dimensions.
 * Validate by measuring errors
 * Make sure new texts are detected (and not wrongly classified).
