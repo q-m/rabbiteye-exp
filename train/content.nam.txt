@@ -64,7 +64,7 @@ VOED673135000.03.nam.png  Vetzuren, totaal verzadigd
 VOED673135000.04.nam.png  Koolhydraten
 VOED673135000.05.nam.png  Suikers
 VOED673135000.06.nam.png  Kalium
-VOED673135000.07.nam.png  Fosfoer
+VOED673135000.07.nam.png  Fosfor
 VOED673135000.08.nam.png  Cinnamyl alcohol
 VOED673135000.09.nam.png  Vitamine B12
 VOED673135000.10.nam.png  Riboflavine/Vitamine B2
