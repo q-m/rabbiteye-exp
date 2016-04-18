@@ -42,7 +42,7 @@ $ ./knn_train.py
 # Classify a new image with k=3
 $ ./knn_test.py imgstest/VOED665279000.png 3
 per 100 gram
-Energie: 105 Kilojoule
+Energie: 1050 Kilojoule
 Energie: 251 Kilocalorie
 Vetten: 12.3 Gram
 Vetzuren, totaal verzadigd: 8.2 Gram
@@ -52,13 +52,12 @@ Eiwitten: 3.3 Gram
 Zout: 0.32 Gram
 ```
 
-There's one error here: _105_ instead of _1050_. All in all, not bad!
+That looks pretty good!
 
 
 Future steps
 ------------
 
-* Recognise text rows from the image, since not all images have equal dimensions.
 * Validate by measuring errors
 * Make sure new texts are detected (and not wrongly classified).
 

@@ -24,7 +24,7 @@ knn_value.load('knn_data.val.npz')
 f = File(sys.argv[1])
 k = int(sys.argv[2])
 
-print_nearest(knn_header, f.header(), k)
+print knn_header.find(f.header(), k=k)
 for row_img in f.rows():
     row = Row(row_img)
     name = knn_name.find(row.name_img(), k=k)
