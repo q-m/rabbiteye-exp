@@ -35,8 +35,9 @@ class Row:
         if self.__segments_cached is None:
             img = self.__unitvalue_img()
             # merge characters into word blobs
-            ret, img2 = cv2.threshold(cv2.blur(img, (4,4)), 240, 255, cv2.THRESH_BINARY)
-            # OR: img2 = cv2.erode(img, None)
+            d = int(img.shape[1]/60)
+            ret, img2 = cv2.threshold(cv2.blur(img, (d,d)), 240, 255, cv2.THRESH_BINARY)
+            #img2 = cv2.erode(img, None)
             # segment
             contours, hierarchy = cv2.findContours(img2, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
             boxes = map(cv2.boundingRect, contours)
