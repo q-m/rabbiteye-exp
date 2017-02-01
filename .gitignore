@@ -1,3 +1,4 @@
 *.pyc
 *.npz
 /nutrient-ocr-knn/train/*.png
+/categorization-svm/test.out.*
