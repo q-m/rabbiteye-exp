@@ -59,7 +59,7 @@ class Tokens
       @tokens.delete_if {|name, data| data[1] < occurence }
     end
     if count
-      @tokens = @tokens.to_a.sort_by {|a| a[1][1]}[0..(count-1)].to_h
+      @tokens = @tokens.to_a.sort_by {|a| -a[1][1] }[0..(count-1)].to_h
     end
   end
 
@@ -68,9 +68,8 @@ class Tokens
     @frozen ? retrieve(s, **kwargs) : upsert(s, **kwargs)
   end
 
-  # return whether the given number exists in the tokens
-  def has_index?(i)
-    !@tokens.find_index {|data| data[0] == i }.nil?
+  def indexes
+    @tokens.values.map(&:first)
   end
 
   def load(filename)
@@ -210,13 +209,26 @@ def build_features(rows)
     @label_names[usage_id] = usage_name
   end
 
-  # limit number of features
-  @tokens.limit!(occurence: 3)
-  features.each do |feat|
-    feat.reject! {|node| @tokens.has_index?(node.index) }
-  end
+  # optionally reduce number of tokens
+  #@tokens.limit!(occurence: 3)
+  #limit_features!(features, @tokens.indexes)
 
   [labels, features]
+end
+
+def limit_features!(features, token_indexes)
+  # limit number of features
+  features.each do |feat|
+    feat.select! {|node| token_indexes.include?(node.index) }
+  end
+  # remove items that had all features removed
+  nfeatures = features.length
+  features.select! {|feat| feat.length > 0 }
+  if features.length < nfeatures
+    puts "warning: #{nfeatures - features.length} items without any features removed, perhaps reduce limit"
+  end
+
+  features
 end
 
 def build_problem(src)
