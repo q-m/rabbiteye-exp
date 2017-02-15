@@ -31,7 +31,7 @@ result is [classify.rb](classify.rb). It can train and predict, as well as gener
 First train:
 
 ```
-$ gem install roo rb-libsvm
+$ gem install tokkens roo rb-libsvm
 $ ./classify.rb data-shorter.xlsx
 $ wc -l test.out.*
     39 test.out.labels
@@ -95,7 +95,7 @@ $ svm-predict test.out.test test.out.result
 $ cat test.out.result
 79
 $ grep '^79 ' test.out.labels
-79 Chocolademelk
+79 31 Chocolademelk
 ```
 
 For comparison, we can also check [LIBLINEAR](http://www.csie.ntu.edu.tw/~cjlin/liblinear)

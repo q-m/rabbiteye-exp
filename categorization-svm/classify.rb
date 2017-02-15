@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'roo'
 require 'libsvm'
+require 'tokkens'
 
 
 def normalize_text(s)
@@ -33,117 +34,14 @@ def normalize_ingredient(s)
   end
 end
 
+STOP_WORDS = %w(
+  in en van de het bevat allergieinformatie voor of om mee te waardoor waarvan gemaakt je uw
+  gebruik zelf belangrijke bijdrage smaak heerlijk heerlijke handig handige ca aanbevolen
+  per dagelijkse hoeveelheid bevat als ze tot hier bijvoorbeeld nog uit hebben deze kunnen
+  mogen waar wanneer jezelf ook
+)
 
-# converts a string to a uniquely identifying sequential number
-class Tokens
-  attr_accessor :offset
-
-  def initialize(offset: 1)
-    # liblinear can't use offset 0, libsvm doesn't mind to start at one
-    @tokens = {}
-    @counter = offset
-    @frozen = false
-  end
-
-  def freeze!
-    @frozen = true
-  end
-
-  def thaw!
-    @frozen = false
-  end
-
-  def limit!(count: nil, occurence: nil)
-    # @todo raise if frozen
-    if occurence
-      @tokens.delete_if {|name, data| data[1] < occurence }
-    end
-    if count
-      @tokens = @tokens.to_a.sort_by {|a| -a[1][1] }[0..(count-1)].to_h
-    end
-  end
-
-  def get(s, **kwargs)
-    return unless s and s.strip != ''
-    @frozen ? retrieve(s, **kwargs) : upsert(s, **kwargs)
-  end
-
-  def indexes
-    @tokens.values.map(&:first)
-  end
-
-  def load(filename)
-    File.open(filename) do |f|
-      f.each_line do |line|
-        id, name = line.rstrip.split(/\s+/, 2)
-        @tokens[name.strip] = [id.to_i, 0]
-      end
-    end
-    # loading doesn't persist counts, and so it's frozen
-    freeze!
-  end
-
-  def save(filename)
-    File.open(filename, 'w') do |f|
-      @tokens.each do |token, (index, count)|
-        f.puts "#{index} #{token}"
-      end
-    end
-  end
-
-  private
-
-  def retrieve(s, prefix: '')
-    data = @tokens[prefix + s]
-    data[0] if data
-  end
-
-  # return token number, update counter; always returns a number
-  def upsert(s, prefix: '')
-    unless data = @tokens[prefix + s]
-      @tokens[prefix + s] = data = [@counter, 0]
-      @counter += 1
-    end
-    data[1] += 1
-    data[0]
-  end
-end
-
-# converts a sentence to a list of numbers
-class Tokenizer
-
-  MIN_LENGTH = 2
-  STOP_WORDS = %w(
-    in en van de het bevat allergieinformatie voor of om mee te waardoor waarvan gemaakt je uw
-    gebruik zelf belangrijke bijdrage smaak heerlijk heerlijke handig handige ca aanbevolen
-    per dagelijkse hoeveelheid bevat als ze tot hier bijvoorbeeld nog uit hebben deze kunnen
-    mogen waar wanneer jezelf ook
-  )
-
-  attr_reader :tokens
-
-  def initialize(tokens)
-    @tokens = tokens
-  end
-
-  def get(s, **kwargs)
-    return [] unless s and s.strip != ''
-    tokenize(s).map {|token| @tokens.get(token, **kwargs) }
-  end
-
-  private
-
-  def tokenize(s)
-    s.split.map(&:strip).select(&method(:include?))
-  end
-
-  def include?(s)
-    s.length >= MIN_LENGTH && !STOP_WORDS.include?(s)
-  end
-end
-
-
-@tokens = Tokens.new(offset: 2) # offset for pct feature
+@tokens = Tokkens::Tokens.new(offset: 2) # offset for pct feature
 
 # extract features from product attributes
 def featurize(name, brand, first_ingredient, ingredients = nil, description = nil, *unused)
@@ -161,7 +59,7 @@ def featurize(name, brand, first_ingredient, ingredients = nil, description = ni
   description = normalize_text(strip_html(description)).sub(/#{brand}\s+/, '')
 
   ## extract features
-  tokenizer = Tokenizer.new(@tokens)
+  tokenizer = Tokkens::Tokenizer.new(@tokens, stop_words: STOP_WORDS)
   words = []
   words += tokenizer.get(name)
   words += tokenizer.get(first_ingredient, prefix: 'ING:')
