@@ -72,18 +72,15 @@ def tokenize(j):
     '''Returns array of tokens for product nut dict'''
     return f_name(j) + f_brand(j) + f_first_ingredient(j)
 
-
-if __name__ == '__main__':
-
-    for line in map(str.rstrip, sys.stdin):
-        j = json.loads(line)
+def tokenize_all(data):
+    '''Returns a dict including the tokens, usage and product_id for all products nuts'''
+    id_tokens = []
+    for j in data:
 
         tokens = tokenize(j)
         tokens = filter(lambda s: s not in STOPWORDS, tokens)
         tokens = filter(lambda s: len(s) > 1, tokens)
-
-        print(json.dumps({
-            'id': j['id'],
-            'tokens': tokens
-        }))
-
+        
+        id_tokens.append({'id': j['id'], 'tokens': tokens, 'usage':j['usage'], 'product_id':j['product_id']})
+        
+    return id_tokens
