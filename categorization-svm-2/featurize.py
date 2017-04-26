@@ -1,4 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+#
+# Tokenizes product nut features.
+#
+#
+# Either import in Python, or pipe a jsonlines file with product nuts, like
+#
+#    cat data/product_nuts.jsonl | python featurize.py >data/product_nut_features.jsonl
+#
 import json
 import re
 import sys
@@ -70,17 +78,24 @@ def f_first_ingredient(j):
 
 def tokenize(j):
     '''Returns array of tokens for product nut dict'''
-    return f_name(j) + f_brand(j) + f_first_ingredient(j)
+    tokens = f_name(j) + f_brand(j) + f_first_ingredient(j)
+    tokens = filter(lambda s: s not in STOPWORDS, tokens)
+    tokens = filter(lambda s: len(s) > 1, tokens)
 
-def tokenize_all(data):
-    '''Returns a dict including the tokens, usage and product_id for all products nuts'''
-    id_tokens = []
-    for j in data:
+    return tokens
 
-        tokens = tokenize(j)
-        tokens = filter(lambda s: s not in STOPWORDS, tokens)
-        tokens = filter(lambda s: len(s) > 1, tokens)
-        
-        id_tokens.append({'id': j['id'], 'tokens': tokens, 'usage':j['usage'], 'product_id':j['product_id']})
-        
-    return id_tokens
+
+def tokenize_dict(j):
+    '''Returns a dict with id, tokens and optional usage_name and product_id'''
+    d = {'id': j['id'], 'tokens': tokenize(j)}
+    if 'usage'      in j: d['usage']      = j['usage']
+    if 'product_id' in j: d['product_id'] = j['product_id']
+
+    return d
+
+
+if __name__ == '__main__':
+    for line in map(str.rstrip, sys.stdin):
+        j = json.loads(line)
+        d = tokenize_dict(j)
+        print(json.dumps(d))

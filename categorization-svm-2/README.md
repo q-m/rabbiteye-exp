@@ -1,11 +1,40 @@
-Product Categorisation with Machine Learning - 2 
+# Product categorization improvements
 
-The code in this directory is to asses the macro recall score of a machine learning algorithm designed to classify products. 
+After a first step in [applying machine learning for product categorization](../categorization-svm),
+there were a lot of things to improve.
 
-The two main files are ‘Cross Validation with Bubble.ipynb’ and the ‘Cross Validation without Bubble.ipynb’. These are two Jupiter notebook files, and work with python 2.7. The features.py file is standard python code, and functions with python 2.7 as well. Merge product and product nuts is also a notebook, and runs on python 2.7.
+Code is provided for a more accurate evaluation criterion, and (later) feature reduction.
 
-features.py returns a list of json types with the usage, product_id, product nuts id and the normalised tokens, for each product given to feauturize_all. 
+Read the [cross-validation explanation](CROSS_VALIDATION.md).
 
-The data that is given to featurize.py is data that is made in ‘Merge product and product nuts.ipynb’. Here products and products nuts are combined, and a person of product nuts is returned, with two extra keys in each dictionary: usage and product_id. 
 
-The two cross validation files are implementations of machine learning to train an algorithm. This algorithm is then evaluated with a macro recall score, and in the code without bubbles the accuracy is higher because it does not account for almost duplicate data, which causes overfitting. 
+## Dependencies
+
+To run the examples, one needs [Python 2.7](http://python.org/) with [sckit-learn](http://www.scikit-learn.org/).
+To work with the `.ipynb` files, [Jupyter](http://jupyter.org/) is required.
+
+## Pre-processing
+
+**TODO** include sample data files in `data/`
+
+The source data in `data/products.jsonl` and `data/product_nuts.jsonl` first needs to be put together:
+
+```sh
+$ python merge.py
+```
+
+resulting in `data/product_nuts_with_usage_and_product_id.jsonl`, containing both product attributes and
+an assigned `usage` (as well as `product_id` for cross-validation with bubbles).
+
+Now you're ready to run the notebooks.
+
+## Cross-validation
+
+Basic cross-validation using linear SVM can be found in [cross_validation.ipynb](cross_validation.ipynb).
+An improved version that keeps product nuts belonging to the same product together, is found in
+[cross_validation_bubble.ipynb](cross_validation_bubbles.ipynb).
+
+The two cross validation files are implementations of machine learning to train an algorithm. This algorithm
+is then evaluated with a macro recall score, and in the code without bubbles the accuracy is higher because
+it does not account for almost duplicate data, which causes overfitting. For more background,
+[read the explanation](CROSS_VALIDATION.md).
