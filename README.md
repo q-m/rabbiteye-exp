@@ -5,5 +5,5 @@ Experiments with machine learning at [Questionmark](http://www.thequestionmark.o
 
 * [Nutrient OCR with KNN networks](nutrient-ocr-knn/)
 * [Nutrient OCR with tesseract](nutrient-ocr-tesseract/)
-* [Product categorization with machine learning](categorization-svm/)
+* [Product categorization with machine learning](categorization-svm/) + [follow-up](categorization-svm-2/)
 
