@@ -38,3 +38,11 @@ The two cross validation files are implementations of machine learning to train 
 is then evaluated with a macro recall score, and in the code without bubbles the accuracy is higher because
 it does not account for almost duplicate data, which causes overfitting. For more background,
 [read the explanation](CROSS_VALIDATION.md).
+
+## Feature reduction
+
+Existing code used all features for classification, even though some of them would not be relevant. In this
+step, features that don't influence the result were removed - see [feature_reduction.ipynb](feature_reduction.ipynb).
+This resulted in a 25% percent feature reduction, where the macro recall score ('with bubbles') did not
+deteriorate more than 1%. [Read more details](FEATURE_REDUCTION.md).
+
