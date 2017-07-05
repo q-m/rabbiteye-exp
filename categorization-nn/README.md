@@ -28,8 +28,8 @@ was used as a starting point. Conditions were tuned to be somewhat comparable wi
 set and 28k test set, 29k features, resulting in a macro recall score of 0.79. The same featurization
 and filtering was used.
 
-The multilayer perceptron (MLP) had a 111k training set and 28k test set, 20k features (capped),
-resulting in a recall score of 0.76. Pretty comparable.
+The multilayer perceptron (MLP) had a 111k training set and 28k test set, 20k features (capped).
+With 5 epochs, this resulted in a recall score of 0.76. Pretty comparable.
 
 ```
 $ python3 qm_usage_mlp.py
@@ -62,8 +62,10 @@ $ du -sh qm_usage_mlp.h5
 ```
 
 For comparison:
-Restricting to 10k features resulted in 111k duplicates, a recall/accuracy of 0.74/0.80 and model size of 67M.
-Restricting to 5k features resulted in 112k duplicates, a recall/accuracy of 0.69/0.77 and model size 38M.
+* Restricting to 10k features resulted in 111k duplicates, a recall/accuracy of 0.74/0.80 and model size of 67M.
+* Restricting to 5k features resulted in 112k duplicates, a recall/accuracy of 0.69/0.77 and model size 38M.
+* With 25 epochs, 5k features, recall/accuracy was 0.80/0.81 and model size still 38M.
+* With 25 epochs, 20k features, recall/accuracy was 0.85/0.86 and model size still 125M.
 
 ### 2. Feature analysis
 
