@@ -62,6 +62,10 @@ is problem addressed in the project
 [a proper measure of success](http://developers.thequestionmark.org/project/2017usage_classification_feature_reduction#a-proper-measure-of-success).
 
 
+**later addition** On dataset `data-2` (from 20170706), the macro recall score returned after training
+was 0.81±0.01, and the updated macro recall was 0.836.
+
+
 ## Solution
 
 A solution to this problem is introducing ‘bubbles’ around all the product nuts that are
@@ -100,6 +104,8 @@ macro recall score: 0.613273809524
 micro recall score: 0.728652300081
 ```
 
+**later addition** On dataset `data-2` (from 20170706), the macro recall score returned after training
+was 0.53±0.2, and the updated macro recall was 0.625.
 
 ## Conclusion
 

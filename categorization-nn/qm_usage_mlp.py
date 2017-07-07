@@ -13,8 +13,13 @@ from keras_metrics import recall
 from featurize import tokenize_dict
 
 max_words = 20000
-batch_size = 256
-epochs = 5
+batch_size = 128
+epochs = 25
+
+base_filename = 'qm_usage_mlp.out'
+filename_source_data = 'data/product_nuts_with_product_info.jsonl'
+filename_removed_classes = base_filename + '.removed_classes.txt'
+filename_model = base_filename + '.model.h5'
 
 #---- extract features
 
@@ -26,7 +31,7 @@ def jsonlines(filename):
     return data
 
 print('Loading data...')
-data = [tokenize_dict(p) for p in jsonlines('data/product_nuts_with_product_info.jsonl')]
+data = [tokenize_dict(p) for p in jsonlines(filename_source_data)]
 data = [d for d in data if d['usage']] # remove entries without a class
 
 # data is now a list of
@@ -46,12 +51,13 @@ p = [d['product_id'] for d in data]
 y_labels = list(set(y))
 y = [y_labels.index(l) for l in y]
 
-tokenizer = Tokenizer(num_words=max_words, split='|')
+tokenizer = Tokenizer(num_words=max_words, split='|', filters='', lower=False)
 tokenizer.fit_on_texts(x)
 x = tokenizer.texts_to_sequences(x)
 
 
 #---- filter features
+# @todo this can probably be rewritten much more beautifully using numpy arrays
 
 # remove items that didn't get any features at all
 yx = [[y[i], x, p[i]] for i,x in enumerate(x)]
@@ -73,17 +79,20 @@ for cur_y, cur_yx in groupby(sorted(yx, key=keyfunc), key=keyfunc):
         new_y.extend([d[0] for d in cur_yx])
         new_x.extend([d[1] for d in cur_yx])
         new_p.extend([d[2] for d in cur_yx])
-print("removed %d items of classes not appearing often enough"%(len(x)-len(new_x)))
+removed_item_count = len(y) - len(new_y)
+removed_classes = list(set(y) - set(new_y))
+print("removed %d classes (with %d items) not appearing often enough: %s"%(len(removed_classes), removed_item_count, filename_removed_classes))
+with open(filename_removed_classes, 'w') as f:
+    for c in removed_classes: f.write(y_labels[c] + '\n')
 x, y, p = new_x, new_y, new_p
 del yx, new_x, new_y, new_p
 
-# remove duplicates
-#   `keyfunc = lambda d: d[1]` makes features unique, seems to perform a bit better than
-#   `keyfunc = lambda d: d` making usage+features unique (no conflicts!)
+# remove duplicates (each combination of features may appear only once)
 #   ultimately, choosing a common parent usage for conflicts would be best, I guess :)
 keyfunc = lambda d: d[1]
 yx = [[y[i], x, p[i]] for i,x in enumerate(x)]
-yx = [list(d[1])[0] for d in groupby(sorted(yx, key=keyfunc), key=keyfunc)]
+yx = groupby(sorted(yx, key=keyfunc), key=keyfunc)
+yx = [list(d[1])[0] for d in yx]
 new_y = [d[0] for d in yx]
 new_x = [d[1] for d in yx]
 new_p = [d[2] for d in yx]
@@ -141,7 +150,7 @@ history = model.fit(x_train, y_train,
                     epochs=epochs,
                     verbose=1,
                     validation_split=0.1)
-model.save('qm_usage_mlp.h5')
+model.save(filename_model)
 
 score = model.evaluate(x_test, y_test,
                        batch_size=batch_size, verbose=1)

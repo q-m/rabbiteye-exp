@@ -62,15 +62,24 @@ $ du -sh qm_usage_mlp.h5
 ```
 
 For comparison:
-* Restricting to 10k features resulted in 111k duplicates, a recall/accuracy of 0.74/0.80 and model size of 67M.
-* Restricting to 5k features resulted in 112k duplicates, a recall/accuracy of 0.69/0.77 and model size 38M.
-* With 25 epochs, 5k features, recall/accuracy was 0.80/0.81 and model size still 38M.
-* With 25 epochs, 20k features, recall/accuracy was 0.85/0.86 and model size still 125M.
+* With 5 epochs, 10k features, (111k duplicates), recall/accuracy was 0.74/0.80, model size 67M.
+* With 5 epochs, 5k features, (112k duplicates, recall/accuracy eas 0.69/0.77, model size 38M.
+* With 25 epochs, 5k features, recall/accuracy was 0.80/0.81, model size still 38M.
+* With 25 epochs, 20k features, recall/accuracy was 0.85/0.86, model size still 125M.
+
+**later addition** On dataset `data-2` (from 20170706):
+* With 5 epochs, 20k features (43k duplicates, 147k train, 37k test), recall/accuracy was 0.82/0.85, model size 126M.
+* With 25 epochs, 5k features (66k duplicates, 126k train, 32k test), recall/accuracy was 0.81/0.82, model size 38M. Overfitting from about 10 epochs.
+* With 25 epochs, 20k features (43k duplicates, 147k train, 37k test), recall/accuracy was 0.86/0.87, model size 126M. Overfitting from about 5 epochs.
 
 ### 2. Feature analysis
 
 About half of the items were removed because they had equal features. This may be an indicator that
 featurization is missing some distinguishing features, or that our training classes are ambiguous.
+
+Desired outputs:
+- classes removed because of too little items (need more items or courser classes)
+- items whose features belong to multiple classes (make manual classification unambiguous or expand features)
 
 TODO
 
