@@ -29,35 +29,36 @@ set and 28k test set, 29k features, resulting in a macro recall score of 0.79. T
 and filtering was used.
 
 The multilayer perceptron (MLP) had a 111k training set and 28k test set, 20k features (capped).
-With 5 epochs, this resulted in a recall score of 0.76. Pretty comparable.
+With 5 epochs, this resulted in a recall score of 0.78. Pretty comparable.
 
 ```
 $ python3 qm_usage_mlp.py
 
-Removed 59 items without features
-removed 122 items of classes not appearing often enough
-Removed 107778 duplicates
+Removed 48 items without features
+removed 80 classes (with 122 items) not appearing often enough: qm_usage_mlp.out.removed_classes.txt
+Removed 107624 duplicates
 
-110900 train sequences
-27725 test sequences
+111032 train sequences
+27758 test sequences
 1322 classes
 
-x_train shape: (110900, 20000)
-x_test shape: (27725, 20000)
-y_train shape: (110900, 1322)
-y_test shape: (27725, 1322)
+x_train shape: (111032, 25000)
+x_test shape: (27758, 25000)
+y_train shape: (111032, 1322)
+y_test shape: (27758, 1322)
 
-Epoch 1/5 - 103s - loss: 4.3827 - recall: 0.1274 - acc: 0.3386 - val_loss: 2.5874 - val_recall: 0.3464 - val_acc: 0.5865
-Epoch 2/5 - 103s - loss: 1.8412 - recall: 0.4819 - acc: 0.6739 - val_loss: 1.4602 - val_recall: 0.5733 - val_acc: 0.7277
-Epoch 3/5 - 113s - loss: 1.0640 - recall: 0.6523 - acc: 0.7830 - val_loss: 1.0621 - val_recall: 0.6722 - val_acc: 0.7872
-Epoch 4/5 - 128s - loss: 0.7185 - recall: 0.7459 - acc: 0.8421 - val_loss: 0.8772 - val_recall: 0.7311 - val_acc: 0.8142
-Epoch 5/5 - 115s - loss: 0.5317 - recall: 0.8062 - acc: 0.8751 - val_loss: 0.7817 - val_recall: 0.7671 - val_acc: 0.8317
+Train on 98895 samples, validate on 10989 samples
+Epoch 1/5 - 132s - loss: 3.8216 - recall: 0.2019 - acc: 0.4053 - val_loss: 2.0277 - val_recall: 0.4566 - val_acc: 0.6518
+Epoch 2/5 - 130s - loss: 1.4315 - recall: 0.5781 - acc: 0.7304 - val_loss: 1.1565 - val_recall: 0.6534 - val_acc: 0.7645
+Epoch 3/5 - 132s - loss: 0.8105 - recall: 0.7289 - acc: 0.8253 - val_loss: 0.8888 - val_recall: 0.7291 - val_acc: 0.8048
+Epoch 4/5 - 131s - loss: 0.5402 - recall: 0.8079 - acc: 0.8715 - val_loss: 0.7739 - val_recall: 0.7680 - val_acc: 0.8216
+Epoch 5/5 - 132s - loss: 0.3972 - recall: 0.8535 - acc: 0.8993 - val_loss: 0.7243 - val_recall: 0.7928 - val_acc: 0.8325
 
-Test score: 0.77819933308
-Test recall: 0.764580703283
-Test accuracy: 0.825103697061
+Test score: 0.757754175588
+Test recall: 0.783415841619
+Test accuracy: 0.825931857926
 
-$ du -sh qm_usage_mlp.h5
+$ du -sh qm_usage_mlp.out.model.h5
 125M
 ```
 
@@ -75,7 +76,8 @@ For comparison:
 ### 2. Feature analysis
 
 About half of the items were removed because they had equal features. This may be an indicator that
-featurization is missing some distinguishing features, or that our training classes are ambiguous.
+featurization is missing some distinguishing features, or that our training classes are ambiguous. This
+may also be ok, because the dataset has items from different sources describing the same product.
 
 Desired outputs:
 - classes removed because of too little items (need more items or courser classes)

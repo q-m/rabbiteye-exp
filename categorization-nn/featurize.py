@@ -75,19 +75,30 @@ def f_first_ingredient(j):
     if f == '': return []
     return ['ING:' + f]
 
+def f_description(j):
+    f = clean(j.get('description', '')).lower()
+    if f == '': return []
+    return ['DSC:' + s for s in f.split()]
 
-def tokenize(j):
+
+
+def tokenize(j, parts=['name', 'brand', 'first_ingredient']):
     '''Returns array of tokens for product nut dict'''
-    tokens = f_name(j) + f_brand(j) + f_first_ingredient(j)
-    tokens = filter(lambda s: s not in STOPWORDS, tokens)
+    tokens = []
+    if 'name' in parts: tokens.extend(f_name(j))
+    if 'brand' in parts: tokens.extend(f_brand(j))
+    if 'first_ingredient' in parts: tokens.extend(f_first_ingredient(j))
+    if 'description' in parts: tokens.extend(f_description(j))
+
+    tokens = filter(lambda s: s.split(':', 1)[-1] not in STOPWORDS, tokens)
     tokens = filter(lambda s: len(s) > 1, tokens)
 
     return tokens
 
 
-def tokenize_dict(j):
+def tokenize_dict(j, parts=['name', 'brand', 'first_ingredient']):
     '''Returns a dict with id, tokens and optional usage_name and product_id'''
-    d = {'id': j['id'], 'tokens': tokenize(j)}
+    d = {'id': j['id'], 'tokens': tokenize(j, parts)}
     if 'usage'      in j: d['usage']      = j['usage']
     if 'product_id' in j: d['product_id'] = j['product_id']
 
