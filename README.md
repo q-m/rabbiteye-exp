@@ -7,4 +7,5 @@ Experiments with machine learning at [Questionmark](http://www.thequestionmark.o
 * [Nutrient OCR with tesseract](nutrient-ocr-tesseract/)
 * [Product categorization with support vector machines](categorization-svm/) + [follow-up](categorization-svm-2/)
 * [Product categorization with neural networks](categorization-nn/)
+* [A simple production setup with Keras](keras-api/)
 
