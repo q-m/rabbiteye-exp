@@ -89,8 +89,7 @@ PASSWORD=s3cret
 apt-get install -y python3-flask uwsgi-core uwsgi-plugin-python3
 
 # Setup service
-useradd -m predictor
-usermod www-data -G predictor
+usermod ubuntu -G www-data
 
 touch /etc/default/predictor
 chmod 0600 /etc/default/predictor
@@ -101,12 +100,13 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/default/predictor
-WorkingDirectory=/home/predictor/app
-ExecStart=/usr/bin/uwsgi -s /home/predictor/uwsgi.sock --chmod=660 --manage-script-name --mount /=api:app --plugin python3
-PIDFile=/home/predictor/app/uwsgi.pid
+WorkingDirectory=/home/ubuntu/app
+# login shell because important variables are set in ~/.bashrc
+ExecStart=/bin/bash -l -c '/usr/bin/uwsgi -s ~/uwsgi.sock --chmod=660 --chown-sock=ubuntu:www-data --manage-script-name --mount /=api:app --plugin python3'
+PIDFile=/home/ubuntu/uwsgi.pid
 KillSignal=SIGQUIT
 Restart=always
-User=predictor
+User=ubuntu
 Type=notify
 NotifyAccess=all
 
@@ -130,7 +130,7 @@ server {
   ssl_certificate_key /etc/letsencrypt/live/${FQDN}/privkey.pem;
 
   location / {
-    uwsgi_pass unix:/home/predictor/uwsgi.sock;
+    uwsgi_pass unix:/home/ubuntu/uwsgi.sock;
     include /etc/nginx/uwsgi_params;
     auth_basic "Restricted";
     auth_basic_user_file /etc/nginx/htpasswd;
@@ -175,7 +175,7 @@ service nginx start
 service predictor start
 ```
 
-Before starting the predictor, however, make sure to put the code in `/home/predictor/app/`.
+Before starting the predictor, however, make sure to put the code in `/home/ubuntu/app/`.
 
 # Links
 
