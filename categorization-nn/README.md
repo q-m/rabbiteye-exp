@@ -85,8 +85,9 @@ Desired outputs:
 
 #### Different feature sets
 
-Different feature selection methods are explored in [model_and_feature_search](model_and_feature_search.ipynb)
-and [qm_usage_mlp-feature-comparison](qm_usage_mlp-feature-comparision.py). The conclusion was that brand,
+Different feature selection methods are explored in
+[model_and_feature_search](https://nbviewer.jupyter.org/github/q-m/rabbiteye-exp/blob/master/categorization-nn/model_and_feature_search.ipynb#Feature-comparison)
+and [qm_usage_mlp-feature-comparison](qm_usage_mlp-feature-comparison.py). The conclusion was that brand,
 model and first ingredient are enough, while adding more ingredients or even categories don't improve predictions.
 
 More analysis could be done on:
@@ -106,9 +107,10 @@ has wrongly labelled classes.
 ### 3. Other models
 
 While two-layer perceptron gave relatively good results, other neural network models could be an improvement.
-A first exploration was done in [model_and_feature_search](model_and_feature_search.ipynb) (bottom) and
-and [qm_usage_mlp-model-comparison](qm_usage_mlp-model-comparision.py). This showed no improvements for deeper
-neural models, though a basic neural network did improve the learning rate.
+A first exploration was done in
+[model_and_feature_search](https://nbviewer.jupyter.org/github/q-m/rabbiteye-exp/blob/master/categorization-nn/model_and_feature_search.ipynb#Model-comparison)
+(bottom) and and [qm_usage_mlp-model-comparison](qm_usage_mlp-model-comparison.py). This showed no improvements for
+deeper neural models, though a basic neural network did improve the learning rate.
 
 Directions to explore are:
 - creating embeddings for name, ingredients, description and using them
