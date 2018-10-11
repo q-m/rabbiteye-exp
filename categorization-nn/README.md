@@ -83,14 +83,48 @@ Desired outputs:
 - classes removed because of too little items (need more items or courser classes)
 - items whose features belong to multiple classes (make manual classification unambiguous or expand features)
 
-TODO
+#### Different feature sets
 
-### 3. Autoencoding
+Different feature selection methods are explored in [model_and_feature_search](model_and_feature_search.ipynb)
+and [qm_usage_mlp-feature-comparison](qm_usage_mlp-feature-comparision.py). The conclusion was that brand,
+model and first ingredient are enough, while adding more ingredients or even categories don't improve predictions.
 
-While there are about 250k items with classes, there are 850k items without. These can be used to
-train an autoencoder to extract relevant features. Later these can be used as an input layer for classification.
+More analysis could be done on:
+- `max_words` parameter search (in progress)
+- including (certain) nutrients
+- incorporating description (probably need an embedding first)
+- manually extract complex features (like alcohol percentage)
+- feed different features into the model separately, to control what is (deemed) more important
+- ...
 
-TODO
+#### Error analysis
 
-### 4. Autoencoding + MLP
+Nevertheless, looking at where classification errors are happening (zooming in on certain classes) would
+probably be good to start with, so as to see where features may be missing, or where our training set
+has wrongly labelled classes.
+
+### 3. Other models
+
+While two-layer perceptron gave relatively good results, other neural network models could be an improvement.
+A first exploration was done in [model_and_feature_search](model_and_feature_search.ipynb) (bottom) and
+and [qm_usage_mlp-model-comparison](qm_usage_mlp-model-comparision.py). This showed no improvements for deeper
+neural models, though a basic neural network did improve the learning rate.
+
+Directions to explore are:
+- creating embeddings for name, ingredients, description and using them
+- ...
+
+### 4. Embedding
+
+At this moment, words are direct inputs for the neural network. This may be improved by using word embeddings,
+which reduces the size of the network by 'combining' words to 'revelant feature vectors'. This process can use
+_all_ data, not only labelled data, to discover 'structure' in the input.
+
+A first step: experimenting with generating an embedding for ingredients, see
+[gensim-embedding-ingredients](gensim-embedding-ingredients.ipynb).
+
+Next steps would be:
+- evaluating the quality of the resulting embedding
+- creating embeddings for name and description
+- using them in the classification model
 
