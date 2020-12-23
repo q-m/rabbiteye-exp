@@ -1,7 +1,7 @@
 lxml
 Pillow
 opencv-python
-tensorflow==1.13.2
+tensorflow==2.4.0
 keras==2.2.4
 imageai==2.1.5
 pandas
