@@ -1,0 +1,8 @@
+lxml
+Pillow
+opencv-python
+tensorflow==1.13.2
+keras==2.2.4
+imageai==2.1.5
+pandas
+sklearn

@@ -8,4 +8,4 @@ Experiments with machine learning at [Questionmark](http://www.thequestionmark.o
 * [Product categorization with support vector machines](categorization-svm/) + [follow-up](categorization-svm-2/)
 * [Product categorization with neural networks](categorization-nn/)
 * [A simple production setup with Keras](keras-api/)
-
+* [Food certification label detection](certificate-logo-nn/)
