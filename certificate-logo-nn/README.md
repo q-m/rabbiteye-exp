@@ -14,12 +14,14 @@ be too hard to automate this. That's what first a couple of trainees from
 [Xomnia](https://www.xomnia.com/) set out to do, as you can read in
 [this blog post](https://www.xomnia.com/post/ready-to-shop-more-sustainably-the-ai-solution-making-food-purchases-more-transparent/).
 They selected [ImageAI](https://imageai.readthedocs.io/)'s custom object detection
-as approach, prepared some data and trained a model. That was a good starting point.
+as approach, prepared some data and trained a model. That was a starting point.
 
 Then mathematics intern Britt took it into her eager hands and set out improving
-the model. Her result is what you can find here.
+the model, with the help of [Vantage AI](https://www.vantage-ai.com/) (see also
+[this post](https://www.linkedin.com/feed/update/urn:li:activity:6710111648646004736/)).
+Her result is what you can find here.
 
-_Report (pending)_ |
+[Report](2021-02-certificate_detection_and_recognition.pdf) |
 [Presentation](2020-12-final-presentation-nl.pdf)
 
 ## Data
