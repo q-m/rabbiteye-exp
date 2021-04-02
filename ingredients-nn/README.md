@@ -25,7 +25,8 @@ There can be multiple approaches:
    - `python3 pos train` - prints as POS corpus e.g. for use with [NLTK-Trainer](https://nltk-trainer.readthedocs.io/en/latest/train_tagger.html)
 
 Note that currently the script is very limited. Things to improve:
-- nesting (currently only flat lists without brackets etc. are handled)
 - distinguishing between start and intermediate tags (e.g. S-INGR and I-INGR, like S-ORG and I-ORG in NER)
+- handle tokens that close two nesting levels (e.g. "saus: paprika, emulgator: E123/E124. pasta: tarwe")
+- support note marks
 - probably more
 

@@ -4,6 +4,17 @@
 #
 # TODO
 # - perhaps keep newlines during tokenization (sometimes used as section separator)
+# - distinguish between S-INGR and I-INGR (for ingredients with multiple words)
+# - handle tokens that close two nesting levels (e.g. "saus: paprika, emulgator: E123/E124. pasta: tarwe")
+# - support note marks
+#
+# Tokens:
+#   INGR   - ingredient
+#   AMNT   - amount
+#   PUNC   - punctuation
+#   NOTE   - note
+#   S-NST1 - start of one nesting level
+#   E-NST1 - end of one nesting level
 #
 import os
 import sys
@@ -34,7 +45,7 @@ class HTMLIngredientsParser(html.parser.HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         debug('handle_starttag("%s", "%s") lvl=%d' % (tag, attrs, self._cur_tag_lvl))
-        cls = [a[1] for a in attrs if a[0] == 'class'][0].split(r'\s+')
+        cls = [a[1] for a in attrs if a[0] == 'class'][0].split()
         self._cur_tag_lvl += 1
         self._cur_tag_cls.append(cls)
         if 'root' in cls:
@@ -49,6 +60,9 @@ class HTMLIngredientsParser(html.parser.HTMLParser):
         elif 'note' in cls:
             self._next_tag()
             self._cur_tag = 'NOTE'
+        elif 'contains' in cls:
+            self._cur_tag = 'S-NST1'
+            self._next_tag()
         else:
             self._next_tag()
             self._cur_tag = 'UNKN'
@@ -59,12 +73,15 @@ class HTMLIngredientsParser(html.parser.HTMLParser):
 
     def handle_endtag(self, tag):
         debug('handle_endtag("%s")' % (tag))
-        self._cur_tag_lvl -= 1
-        self._cur_tag_cls.pop()
-        if self._cur_tag_lvl == 0:
+        if self._cur_tag_lvl == 1:
             self._next_result()
+        elif 'contains' in self._cur_tag_cls[-1]:
+            self._next_tag()
+            self._cur_tag = 'E-NST1'
         else:
             self._next_tag()
+        self._cur_tag_lvl -= 1
+        self._cur_tag_cls.pop()
 
     def _next_tag(self):
         if self._cur_text:
